@@ -27,4 +27,5 @@ run cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr -DCMAKE_INSTALL_SYSCONFDIR:PATH=/etc 
 
 workdir /data
 
-
+CMD ["/home/hello.py"]
+ENTRYPOINT ["python"]
