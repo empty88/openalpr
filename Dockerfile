@@ -11,10 +11,12 @@ run apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     liblog4cplus-dev \
     libopencv-dev \
     libtesseract-dev \
+    python \
     wget
 
 # Copy all data
 copy . /srv/openalpr
+copy 
 
 # Setup the build directory
 run mkdir /srv/openalpr/src/build
@@ -27,5 +29,5 @@ run cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr -DCMAKE_INSTALL_SYSCONFDIR:PATH=/etc 
 
 workdir /data
 
-CMD ["/home/hello.py"]
+CMD ["/srv/openalpr/openalpr_web.py"]
 ENTRYPOINT ["python"]
