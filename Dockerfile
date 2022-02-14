@@ -25,6 +25,8 @@ workdir /srv/openalpr/src/build
 run cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr -DCMAKE_INSTALL_SYSCONFDIR:PATH=/etc .. && \
     make -j2 && \
     make install
+    
+RUN pip install --no-cache-dir tornado
 
 workdir /data
 
