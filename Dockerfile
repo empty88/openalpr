@@ -16,7 +16,6 @@ run apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
 
 # Copy all data
 copy . /srv/openalpr
-copy 
 
 # Setup the build directory
 run mkdir /srv/openalpr/src/build
