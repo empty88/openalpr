@@ -12,6 +12,7 @@ run apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     libopencv-dev \
     libtesseract-dev \
     python \
+    python3-distutils \
     wget
 
 # Copy all data
