@@ -11,8 +11,8 @@ run apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     liblog4cplus-dev \
     libopencv-dev \
     libtesseract-dev \
-    python \
-    python3-distutils \
+    python3.4 \
+    python3-pip \
     wget
 
 # Copy all data
@@ -27,9 +27,16 @@ run cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr -DCMAKE_INSTALL_SYSCONFDIR:PATH=/etc 
     make -j2 && \
     make install
     
+workdir /data
+
+FROM python:3.4
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
+
+COPY . .
+
 RUN pip install --no-cache-dir tornado
 
-workdir /data
 
 CMD ["/srv/openalpr/openalpr_web.py"]
 ENTRYPOINT ["python"]
