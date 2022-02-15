@@ -33,75 +33,6 @@ plate0: top 10 results -- Processing Time = 58.1879ms.
 
 ```
 
-Detailed command line usage:
-
-```
-user@linux:~/openalpr$ alpr --help
-
-USAGE: 
-
-   alpr  [-c <country_code>] [--config <config_file>] [-n <topN>] [--seek
-         <integer_ms>] [-p <pattern code>] [--clock] [-d] [-j] [--]
-         [--version] [-h] <image_file_path>
-
-
-Where: 
-
-   -c <country_code>,  --country <country_code>
-     Country code to identify (either us for USA or eu for Europe). 
-     Default=us
-
-   --config <config_file>
-     Path to the openalpr.conf file
-
-   -n <topN>,  --topn <topN>
-     Max number of possible plate numbers to return.  Default=10
-
-   --seek <integer_ms>
-     Seek to the specified millisecond in a video file. Default=0
-
-   -p <pattern code>,  --pattern <pattern code>
-     Attempt to match the plate number against a plate pattern (e.g., md
-     for Maryland, ca for California)
-
-   --clock
-     Measure/print the total time to process image and all plates. 
-     Default=off
-
-   -d,  --detect_region
-     Attempt to detect the region of the plate image.  [Experimental] 
-     Default=off
-
-   -j,  --json
-     Output recognition results in JSON format.  Default=off
-
-   --,  --ignore_rest
-     Ignores the rest of the labeled arguments following this flag.
-
-   --version
-     Displays version information and exits.
-
-   -h,  --help
-     Displays usage information and exits.
-
-   <image_file_path>
-     Image containing license plates
-
-
-   OpenAlpr Command Line Utility
-
-```
-
-
-Binaries
-----------
-
-Pre-compiled Windows binaries can be downloaded on the [releases page](https://github.com/openalpr/openalpr/releases)
-
-Install OpenALPR on Ubuntu 16.04 with the following commands:
-
-    sudo apt-get update && sudo apt-get install -y openalpr openalpr-daemon openalpr-utils libopenalpr-dev
-
 Documentation
 ---------------
 
@@ -111,33 +42,6 @@ Integrating the Library
 -----------------------
 
 OpenALPR is written in C++ and has bindings in C#, Python, Node.js, Go, and Java.  Please see this guide for examples showing how to run OpenALPR in your application: http://doc.openalpr.com/bindings.html
-
-Compiling
------------
-
-[![Build Status](https://travis-ci.org/openalpr/openalpr.svg?branch=master)](https://travis-ci.org/openalpr/openalpr)
-
-OpenALPR compiles and runs on Linux, Mac OSX and Windows.
-
-OpenALPR requires the following additional libraries:
-
-    - Tesseract OCR v3.0.4 (https://github.com/tesseract-ocr/tesseract)
-    - OpenCV v2.4.8+ (http://opencv.org/)
-
-After cloning this GitHub repository, you should download and extract Tesseract and OpenCV source code into their own directories.  Compile both libraries.
-
-Please follow these detailed compilation guides for your respective operating system:
-
-* [Windows](https://github.com/openalpr/openalpr/wiki/Compilation-instructions-(Windows))
-* [Ubuntu Linux](https://github.com/openalpr/openalpr/wiki/Compilation-instructions-(Ubuntu-Linux))
-* [OS X](https://github.com/openalpr/openalpr/wiki/Compilation-instructions-(OS-X))
-* [Android Library](https://github.com/SandroMachado/openalpr-android)
-* [Android Application Sample](https://github.com/sujaybhowmick/OpenAlprDroidApp)
-* [iOS](https://github.com/twelve17/openalpr-ios)
-* [iOS React Native](https://github.com/cardash/react-native-openalpr)
-* [Xamarin](https://github.com/kevinjpetersen/openalpr-xamarin)
-
-If all went well, there should be an executable named *alpr* along with *libopenalpr-static.a* and *libopenalpr.so* that can be linked into your project.
 
 Docker
 ------
