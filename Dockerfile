@@ -11,9 +11,13 @@ run apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     liblog4cplus-dev \
     libopencv-dev \
     libtesseract-dev \
-    python3.4 \
+    python3.7 \
     python3-pip \
     wget
+
+RUN pip3 install --no-cache-dir tornado
+RUN pip3 install --no-cache-dir numpy
+RUN pip3 install --no-cache-dir openalpr
 
 # Copy all data
 copy . /srv/openalpr
@@ -26,17 +30,13 @@ workdir /srv/openalpr/src/build
 run cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr -DCMAKE_INSTALL_SYSCONFDIR:PATH=/etc .. && \
     make -j2 && \
     make install
-    
-workdir /data
+	
+workdir /srv/openalpr/src/bindings/python/
 
-FROM python:3.4
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
+RUN python3 setup.py install
+ENV PYTHONPATH "${PYTHONPATH}:/srv/openalpr/src/bindings/python/openalpr"
 
-COPY . .
+workdir /srv/openalpr/
 
-RUN pip install --no-cache-dir tornado
-
-
-CMD ["/srv/openalpr/openalpr_web.py"]
-ENTRYPOINT ["python"]
+CMD ["openalpr_web.py"]
+ENTRYPOINT ["python3"]
