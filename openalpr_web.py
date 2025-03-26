@@ -3,14 +3,16 @@ from openalpr import Alpr
 import json
 import tornado.ioloop
 import tornado.web
+import os
 
 alpr = Alpr("eu", "/etc/openalpr/openalpr.conf", "/usr/share/openalpr/runtime_data")
-alpr.set_top_n(20)
-
+alpr.set_top_n(10)
+alpr.set_default_region("de")
+alpr.set_detect_region(False)
 
 class MainHandler(tornado.web.RequestHandler):
     def post(self):
-
+        print("start")
         if 'image' not in self.request.files:
             self.finish('Image parameter not provided')
 
@@ -19,12 +21,13 @@ class MainHandler(tornado.web.RequestHandler):
 
         if len(jpeg_bytes) <= 0:
             return False
-
+        print("analyzing " + fileinfo.filename)
         results = alpr.recognize_array(jpeg_bytes)
 
+        if "plate" in json.dumps(results):
+            print("plate found: " + results["results"][0]["plate"])
+        print("end")
         self.finish(json.dumps(results))
-
-
 
 application = tornado.web.Application([
     (r"/alpr", MainHandler),
