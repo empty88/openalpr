@@ -1,7 +1,7 @@
 from ubuntu:18.04
 
 # Install prerequisites
-run apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     build-essential \
     cmake \
     curl \
@@ -20,23 +20,23 @@ RUN pip3 install --no-cache-dir numpy
 RUN pip3 install --no-cache-dir openalpr
 
 # Copy all data
-copy . /srv/openalpr
+COPY . /srv/openalpr
 
 # Setup the build directory
-run mkdir /srv/openalpr/src/build
-workdir /srv/openalpr/src/build
+RUN mkdir /srv/openalpr/src/build
+WORKDIR /srv/openalpr/src/build
 
 # Setup the compile environment
-run cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr -DCMAKE_INSTALL_SYSCONFDIR:PATH=/etc .. && \
+RUN cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr -DCMAKE_INSTALL_SYSCONFDIR:PATH=/etc .. && \
     make -j2 && \
     make install
 	
-workdir /srv/openalpr/src/bindings/python/
+WORKDIR /srv/openalpr/src/bindings/python/
 
 RUN python3 setup.py install
-ENV PYTHONPATH "${PYTHONPATH}:/srv/openalpr/src/bindings/python/openalpr"
+ENV PYTHONPATH="${PYTHONPATH}:/srv/openalpr/src/bindings/python/openalpr"
 
-workdir /srv/openalpr/
+WORKDIR /srv/openalpr/
 
 CMD ["openalpr_web.py"]
 ENTRYPOINT ["python3"]
