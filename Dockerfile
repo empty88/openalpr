@@ -1,4 +1,4 @@
-from ubuntu:18.04
+FROM ubuntu:18.04
 
 # Install prerequisites
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
