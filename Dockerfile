@@ -37,6 +37,7 @@ RUN python3 setup.py install
 ENV PYTHONPATH="${PYTHONPATH}:/srv/openalpr/src/bindings/python/openalpr"
 
 WORKDIR /srv/openalpr/
+EXPOSE 8888/tcp
 
 CMD ["openalpr_web.py"]
 ENTRYPOINT ["python3"]

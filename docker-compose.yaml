@@ -1,0 +1,18 @@
+name: openalpr
+services:
+  app:
+    image: openalpr
+    container_name: openalpr
+    restart: always
+    ports:
+      - 8088:8888
+    volumes:
+      - type: bind
+        source: /srv/openalpr/openalpr/runtime_data
+        target: /usr/share/openalpr/runtime_date
+      - type: bind
+        source: /srv/openalpr/openalpr/openalpr.conf
+        target: /etc/openalpr/openalpr.conf
+      - type: bind
+        source: /srv/openalpr/openalpr/mask.jpg
+        target: /etc/openalpr/mask.jpg
