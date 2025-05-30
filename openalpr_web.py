@@ -12,7 +12,7 @@ alpr.set_detect_region(False)
 
 class MainHandler(tornado.web.RequestHandler):
     def post(self):
-        print("start")
+        print("start", flush=True)
         if 'image' not in self.request.files:
             self.finish('Image parameter not provided')
 
@@ -21,12 +21,12 @@ class MainHandler(tornado.web.RequestHandler):
 
         if len(jpeg_bytes) <= 0:
             return False
-        print("analyzing " + fileinfo.filename)
+        print("analyzing " + fileinfo.filename, flush=True)
         results = alpr.recognize_array(jpeg_bytes)
 
         if "plate" in json.dumps(results):
             print("plate found: " + results["results"][0]["plate"])
-        print("end")
+        print("end", flush=True)
         self.finish(json.dumps(results))
 
 application = tornado.web.Application([
